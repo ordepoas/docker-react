@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules # this folder is not override by the next command
+      - .:/app
+    container_name: web
+  
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules # this folder is not override by the next command
+      - .:/app
+    # override start command
+    command: ["npm", "run", "test"]
+    container_name: tests
+  
+
+    
